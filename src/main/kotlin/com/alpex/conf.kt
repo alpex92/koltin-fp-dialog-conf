@@ -1,6 +1,8 @@
 package com.alpex
 
 import java.util.*
+import arrow.optics.*
+import arrow.optics.dsl.*
 
 typealias Id = UUID
 
@@ -10,9 +12,14 @@ object Male: Gender()
 object Female: Gender()
 
 // Product
-data class UserInfo(val name: String, val lastName: String, val age: Int, val gender: Gender)
 
-data class User(val id: Id, val info: UserInfo)
+@optics data class UserInfo(val name: String, val lastName: String, val age: Int, val gender: Gender) {
+    companion object
+}
+
+@optics data class User(val id: Id, val info: UserInfo) {
+    companion object
+}
 
 interface UserRepo {
     fun find(id: Id): User?
@@ -23,4 +30,3 @@ interface UserRepo {
 }
 
 data class UserInput(val name: String, val age: Int, val gender: Gender)
-
