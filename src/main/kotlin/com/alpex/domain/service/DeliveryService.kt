@@ -37,7 +37,7 @@ class DeliveryService<F>(
             .mapLeft(::ValidationError)
 
         return ETM.fx.monad {
-            val (pair) =  EitherT.fromEither(A, deliveryAndUserInfoE)k
+            val (pair) =  EitherT.fromEither(A, deliveryAndUserInfoE)
             val (delivery, userInfo) = pair
             val (_) = EitherT.liftF<F, DeliveryServiceError, Unit>(M, deliveryRepo.add(delivery))
             // TODO: Check before creating new user every time
